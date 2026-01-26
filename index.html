@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .layout {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            padding: 32px 24px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 64px;
+            height: 64px;
+            border-radius: 120px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .site-title {
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .nav ul {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .nav li {
+            margin-bottom: 6px;
+        }
+
+        .nav a {
+            display: block;
+            padding: 12px 16px;
+            color: #4b5563;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .nav a.active {
+            font-weight: 600;
+        }
+
+        .auth {
+            margin-top: auto;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .categories {
+            background: #e5e7eb;
+            border-radius: 16px;
+            padding: 10px 16px;
+            margin: 16px 32px 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            background: white;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .category-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .category-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel {
+            width: 100%;
+            max-width: 1600px;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .page {
+            flex: 0 0 100%;
+            min-width: 100%;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px 20px;
+            justify-content: center;
+            padding: 0 20px;
+            background: transparent;
+        }
+
+        .book-card {
+            width: 250px;
+            height: 400px;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transition: all 0.28s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.14);
+        }
+
+        .book-cover {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e8e8e8;
+        }
+
+        .book-cover img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .book-info {
+            padding: 18px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .book-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #111827;
+            line-height: 1.3;
+        }
+
+        .book-author {
+            font-size: 0.92rem;
+            color: #64748b;
+            margin-bottom: 14px;
+        }
+
+        .open-btn {
+            padding: 9px 18px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .open-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .carousel-controls {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            justify-content: center;
+        }
+
+        .carousel-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 8px 16px;
+            transition: all 0.2s;
+        }
+
+        .carousel-btn:hover {
+            color: #2563eb;
+            transform: scale(1.2);
+        }
+
+        .carousel-btn:disabled {
+            color: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            gap: 14px;
+        }
+
+        .indicator {
+            width: 11px;
+            height: 11px;
+            background: #cbd5e1;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .indicator.active {
+            background: #2563eb;
+            transform: scale(1.35);
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-content {
+            background: white;
+            width: 420px;
+            max-width: 92%;
+            border-radius: 16px;
+            padding: 40px 32px 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            position: relative;
+        }
+
+        .close-modal {
+            margin: 330px;
+            font-size: 28px;
+            color: #9ca3af;
+            cursor: pointer;
+            z-index: 10;
+            padding: 8px;
+            border-radius: 0;
+            transition: all 0.2s;
+        }
+
+        .close-modal1 {
+            margin: 690px;
+            font-size: 28px;
+            color: #9ca3af;
+            cursor: pointer;
+            z-index: 10;
+            padding: 8px;
+            border-radius: 0;
+            transition: all 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #374151;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 24px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px;
+            background: #f3f4f6;
+            border: none;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Book modal styles */
+        .book-modal-content {
+            width: 800px;
+            max-width: 90%;
+            padding: 40px;
+            background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+            border-radius: 20px;
+        }
+
+        .book-view {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .book-cover-large {
+            flex-shrink: 0;
+            width: 280px;
+            height: 420px;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 2px solid #e5e7eb;
+        }
+
+        .book-cover-large img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .book-details {
+            flex: 1;
+            background: rgba(255,255,255,0.9);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .book-details h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+            line-height: 1.2;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .book-details .book-author {
+            font-size: 22px;
+            color: #64748b;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .book-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        }
+
+        .book-description {
+            font-size: 18px;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .read-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+        }
+
+        .read-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37,99,235,0.5);
+        }
+
+        /* Category on cards */
+        .book-card .book-category {
+            font-size: 0.85rem;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="Logo-Philosophy.png" alt="Логотип">
+            </div>
+            <h1 class="site-title">Philosophy</h1>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active">Главная</a></li>
+                    <li><a href="#">Авторы</a></li>
+                    <li><a href="#">Темы</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth">
+                <button class="login-btn" id="open-auth-modal">Войти / Регистрация</button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="categories">
+                <button class="category-btn active">Всё</button>
+                <button class="category-btn">Стоицизм</button>
+                <button class="category-btn">Эпикуреизм</button>
+                <button class="category-btn">Скептицизм</button>
+                <button class="category-btn">Экзистенциализм</button>
+                <button class="category-btn">Феноменология</button>
+                <button class="category-btn">Постмодернизм</button>
+                <button class="category-btn">Марксизм</button>
+                <button class="category-btn">Нигилизм</button>
+                <button class="category-btn">Прагматизм</button>
+                <button class="category-btn">Утилитаризм</button>
+                <button class="category-btn">Идеализм</button>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="carousel">
+                    <div class="carousel-inner" id="carousel-inner">
+
+                        <div class="page">
+                            <div class="page-grid">
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Бытие и ничто</div>
+                                            <div class="book-author">Жан-Поль Сартр</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Критика чистого разума</div>
+                                            <div class="book-author">Иммануил Кант</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Феноменология духа</div>
+                                            <div class="book-author">Георг Вильгельм Фридрих Гегель</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Так говорил Заратустра</div>
+                                            <div class="book-author">Фридрих Ницше</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Республика</div>
+                                            <div class="book-author">Платон</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Этика</div>
+                                            <div class="book-author">Бенедикт Спиноза</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Метафизика</div>
+                                            <div class="book-author">Аристотель</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Трактат о человеческой природе</div>
+                                            <div class="book-author">Дэвид Юм</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Капитал</div>
+                                            <div class="book-author">Карл Маркс</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Введение в психоанализ</div>
+                                            <div class="book-author">Зигмунд Фрейд</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Философия права</div>
+                                            <div class="book-author">Георг Вильгельм Фридрих Гегель</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Критика практического разума</div>
+                                            <div class="book-author">Иммануил Кант</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Государство</div>
+                                            <div class="book-author">Платон</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">По ту сторону добра и зла</div>
+                                            <div class="book-author">Фридрих Ницше</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Философия духа</div>
+                                            <div class="book-author">Георг Вильгельм Фридрих Гегель</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Трактат о человеческой природе</div>
+                                            <div class="book-author">Дэвид Юм</div>
+                        </div>
+
+                        <!-- Вторая страница для демонстрации карусели -->
+                        <div class="page">
+                            <div class="page-grid">
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d6b1c534a567690e899ed23b8371e40ade42bb16-11908978-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Медитации 2</div>
+                                            <div class="book-author">Марк Аврелий</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img src="https://avatars.mds.yandex.net/i?id=d3ebdfc2fc6c6d84ef41226c0a1c389fa8a687f4-10748854-images-thumbs&n=13" alt="Обложка книги">
+                                    </div>
+                                    <div class="book-info">
+                                        <div>
+                                            <div class="book-title">Бытие и ничто 2</div>
+                                            <div class="book-author">Жан-Поль Сартр</div>
+                                        </div>
+                                        <button class="open-btn">Открыть</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Добавьте дополнительные карточки для второй страницы -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prev">←</button>
+                    <div class="carousel-indicators" id="indicators"></div>
+                    <button class="carousel-btn next" id="next">→</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно входа/регистрации -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">×</span>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="login">Вход</button>
+                <button class="tab-btn" data-tab="register">Регистрация</button>
+            </div>
+
+            <form id="login-form" class="form active">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Войти</button>
+            </form>
+
+            <form id="register-form" class="form">
+                <div class="form-group">
+                    <label>Имя / Ник</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" required>
+                </div>
+                <div class="form-group">
+                    <label>Повторите пароль</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно просмотра книги -->
+    <div class="modal" id="book-modal">
+        <div class="modal-content book-modal-content">
+            <span class="close-modal1" id="close-book-modal">×</span>
+            <div class="book-view">
+                <div class="book-cover-large">
+                    <img id="book-cover-img" src="" alt="Обложка книги">
+                </div>
+                <div class="book-details">
+                    <h2 id="book-title-display"></h2>
+                    <p class="book-author" id="book-author-display"></p>
+                    <span class="book-category" id="book-category-display"></span>
+                    <p class="book-description" id="book-description-display">Здесь может быть описание книги или краткий обзор. Книга предлагает глубокие размышления о философии жизни, этике и самосовершенствовании.</p>
+                    <button class="read-btn" id="read-btn">Читать</button>
+    </div>
+</div>
+
+    <script>
+        // Модальное окно
+        const modal = document.getElementById('auth-modal');
+        const openModalBtn = document.getElementById('open-auth-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', e => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+
+        // Табы вход/регистрация
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+                document.getElementById(btn.dataset.tab + '-form').classList.add('active');
+            });
+        });
+
+        // =============================================================================
+        //  Карусель (улучшенная версия из второго кода)
+        // =============================================================================
+        const inner = document.getElementById('carousel-inner');
+        const pages = document.querySelectorAll('.page');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        const indicatorsCont = document.getElementById('indicators');
+
+        let currentPage = 0;
+
+        // Создаём индикаторы
+        pages.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('indicator');
+            if (idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToPage(idx));
+            indicatorsCont.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.indicator');
+
+        function updateCarousel() {
+            inner.style.transform = `translateX(-${currentPage * 100}%)`;
+
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentPage));
+
+            // Отключаем кнопки на крайних страницах
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === pages.length - 1;
+        }
+
+        function goToPage(index) {
+            currentPage = Math.max(0, Math.min(index, pages.length - 1));
+            updateCarousel();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) goToPage(currentPage - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+             if (currentPage < pages.length - 1) goToPage(currentPage + 1);
+        });
+
+        // Инициализация
+        updateCarousel();
+
+        // Кликабельность категорий и навигации
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                console.log('Категория выбрана:', btn.textContent);
+
+                // Фильтрация книг по категории
+                const selectedCategory = btn.textContent.trim();
+                document.querySelectorAll('.book-card').forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (selectedCategory === 'Всё' || cardCategory === selectedCategory) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelectorAll('.nav a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                console.log('Страница выбрана:', link.textContent);
+            });
+        });
+
+        // Модальное окно просмотра книги
+        const bookModal = document.getElementById('book-modal');
+        const closeBookModalBtn = document.getElementById('close-book-modal');
+        const bookCoverImg = document.getElementById('book-cover-img');
+        const bookTitleDisplay = document.getElementById('book-title-display');
+        const bookAuthorDisplay = document.getElementById('book-author-display');
+        const bookCategoryDisplay = document.getElementById('book-category-display');
+        const bookDescriptionDisplay = document.getElementById('book-description-display');
+        const readBtn = document.getElementById('read-btn');
+
+        const categories = ['Стоицизм', 'Эпикуреизм', 'Скептицизм', 'Экзистенциализм', 'Феноменология', 'Постмодернизм', 'Марксизм', 'Нигилизм', 'Прагматизм', 'Утилитаризм', 'Идеализм'];
+
+        // Присваиваем категории карточкам книг, обеспечивая минимум одну книгу на категорию
+        const bookCards = document.querySelectorAll('.book-card');
+        categories.forEach((cat, index) => {
+            if (bookCards[index]) {
+                bookCards[index].setAttribute('data-category', cat);
+            }
+        });
+        // Остальным книгам присваиваем случайные категории
+        for (let i = categories.length; i < bookCards.length; i++) {
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            bookCards[i].setAttribute('data-category', randomCategory);
+        }
+
+        document.querySelectorAll('.open-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.closest('.book-card');
+                const coverImg = card.querySelector('.book-cover img').src;
+                const title = card.querySelector('.book-title').textContent;
+                const author = card.querySelector('.book-author').textContent;
+                const category = card.getAttribute('data-category');
+
+                bookCoverImg.src = coverImg;
+                bookTitleDisplay.textContent = title;
+                bookAuthorDisplay.textContent = author;
+                bookCategoryDisplay.textContent = category;
+
+                // Генерируем случайное описание
+                const descriptions = [
+                    'Эта книга предлагает глубокие размышления о философии жизни, этике и самосовершенствовании. Автор делится мудростью, накопленной веками.',
+                    'Классическое произведение, исследующее фундаментальные вопросы бытия, сознания и человеческого существования.',
+                    'Философский трактат, который вдохновляет на размышления о смысле жизни и моральных принципах.',
+                    'В этой книге рассматриваются ключевые концепции современной философии и их влияние на современное общество.',
+                    'Автор анализирует сложные философские идеи, делая их доступными для широкого круга читателей.'
+                ];
+                bookDescriptionDisplay.textContent = descriptions[Math.floor(Math.random() * descriptions.length)];
+
+                bookModal.style.display = 'flex';
+            });
+        });
+
+        closeBookModalBtn.addEventListener('click', () => {
+            bookModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', e => {
+            if (e.target === bookModal) bookModal.style.display = 'none';
+        });
+
+        readBtn.addEventListener('click', () => {
+            window.location.href = 'index2.html';
+        });
+    </script>
+</body>
+</html>
