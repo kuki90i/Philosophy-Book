@@ -1,132 +1,132 @@
   const books = [
     {
-      img: 'img/Book-1.png',
+      img: 'Book-1.png',
       title: 'Метафизика',
       author: 'Аристотель',
       category: 'Метафизика',
       text: 'Основополагающее произведение о природе бытия, субстанции и причинности в философии Аристотеля.'
     },
     {
-      img: 'img/Book-2.png',
+      img: 'Book-2.png',
       title: 'Бытие и время',
       author: 'Мартин Хайдеггер',
       category: 'Экзистенциализм',
       text: 'Ключевой труд экзистенциальной философии, исследующий понятие бытия и человеческого существования.'
     },
     {
-      img: 'img/Book-3.png',
+      img: 'Book-3.png',
       title: 'Наедине с собой',
       author: 'Марк Аврелий',
       category: 'Стоицизм',
       text: 'Личные размышления римского императора о стоицизме, морали и смысле жизни.'
     },
     {
-      img: 'img/Book-4.png',
+      img: 'Book-4.png',
       title: 'Государство',
       author: 'Платон',
       category: 'Политическая философия',
       text: 'Диалог о идеальном государстве, справедливости и роли философа в обществе.'
     },
     {
-      img: 'img/Book-5.png',
+      img: 'Book-5.png',
       title: 'Этика',
       author: 'Аристотель',
       category: 'Этика',
       text: 'Трактат о добродетелях, счастье и этических принципах в учении Аристотеля.'
     },
     {
-      img: 'img/Book-6.png',
+      img: 'Book-6.png',
       title: 'Воля к власти',
       author: 'Фридрих Ницше',
       category: 'Нигилизм',
       text: 'Сборник афоризмов о воле к власти, нигилизме и переоценке ценностей.'
     },
     {
-      img: 'img/Book-7.png',
+      img: 'Book-7.png',
       title: 'Логика',
       author: 'Георг Вильгельм Фридрих Гегель',
       category: 'Идеализм',
       text: 'Система диалектической логики Гегеля, основа его философской системы.'
     },
     {
-      img: 'img/Book-8.png',
+      img: 'Book-8.png',
       title: 'Критика способности суждения',
       author: 'Иммануил Кант',
       category: 'Эстетика',
       text: 'Исследование эстетического и телеологического суждения в философии Канта.'
     },
     {
-      img: 'img/Book-9.png',
+      img: 'Book-9.png',
       title: 'Мера всех вещей',
       author: 'Платон',
       category: 'Эпистемология',
       text: 'Диалог о природе знания и критериях истины в учении Платона.'
     },
     {
-      img: 'img/Book-10.png',
+      img: 'Book-10.png',
       title: 'История западной философии',
       author: 'Бертран Рассел',
       category: 'Эпистемология',
       text: 'Обзор развития западной философии от древности до современности.'
     },
     {
-      img: 'img/Book-11.png',
+      img: 'Book-11.png',
       title: 'Диалоги об Атлантиде',
       author: 'Платон',
       category: 'Метафизика',
       text: 'Диалоги о космологии, Атлантиде и метафизических идеях Платона.'
     },
     {
-      img: 'img/Book-12.png',
+      img: 'Book-12.png',
       title: 'Законы',
       author: 'Платон',
       category: 'Политическая философия',
       text: 'Диалог о законах идеального государства и политической философии.'
     },
     {
-      img: 'img/Book-13.png',
+      img: 'Book-13.png',
       title: 'Философские исследования',
       author: 'Людвиг Витгенштейн',
       category: 'Эпистемология',
       text: 'Анализ языка, значения и природы философских проблем.'
     },
     {
-      img: 'img/Book-14.png',
+      img: 'Book-14.png',
       title: 'Диалоги. Апология Сократа',
       author: 'Платон',
       category: 'Этика',
       text: 'Защитительная речь Сократа и диалоги о морали и справедливости.'
     },
     {
-      img: 'img/Book-15.png',
+      img: 'Book-15.png',
       title: 'Мир как воля и представление',
       author: 'Артур Шопенгауэр',
       category: 'Метафизика',
       text: 'Философия воли, страдания и иллюзии мира в учении Шопенгауэра.'
     },
     {
-      img: 'img/Book-16.png',
+      img: 'Book-16.png',
       title: 'О свободе воли и об основании морали',
       author: 'Артур Шопенгауэр',
       category: 'Этика',
       text: 'Сборник эссе о свободе воли и моральных основаниях человеческого поведения.'
     },
     {
-      img: 'img/Book-17.png',
+      img: 'Book-17.png',
       title: 'Философия духа',
       author: 'Георг Вильгельм Фридрих Гегель',
       category: 'Метафизика',
       text: 'Часть системы Гегеля, посвященная развитию духа и сознания.'
     },
     {
-      img: 'img/Book-18.png',
+      img: 'Book-18.png',
       title: 'Так говорил Заратустра',
       author: 'Фридрих Ницше',
       category: 'Экзистенциализм',
       text: 'Поэтическое произведение о сверхчеловеке и переоценке ценностей.'
     },
     {
-      img: 'img/Book-19.png',
+      img: 'Book-19.png',
       title: 'По ту сторону добра и зла',
       author: 'Фридрих Ницше',
       category: 'Нигилизм',
@@ -301,7 +301,7 @@
     function updateAccountButton(){
       if(currentUser){
         accountBtn.classList.add('logged-in');
-        accountBtn.innerHTML = `<img src="img/Logo-Ake.png" /><span>${currentUser.name}</span>`;
+        accountBtn.innerHTML = `<img src="Logo-Ake.png" /><span>${currentUser.name}</span>`;
       } else {
         accountBtn.classList.remove('logged-in');
         accountBtn.innerHTML = `<i class="bx bx-log-in"></i><span>Аккаунт</span>`;
@@ -311,7 +311,7 @@
     function openAccountModal(){
       if(!currentUser) return;
       accountModal.classList.add('active');
-      accImg.src = `img/Logo-Ake.png`;
+      accImg.src = `Logo-Ake.png`;
       accName.textContent = currentUser.name;
       accEmail.textContent = currentUser.email;
     }
